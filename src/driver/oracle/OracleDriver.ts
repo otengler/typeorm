@@ -646,10 +646,10 @@ export class OracleDriver implements Driver {
      */
     protected loadDependencies(): void {
         try {
-            this.oracle = PlatformTools.load("oracledb");
+            this.oracle = PlatformTools.load(this.options.driver || "oracledb");
 
         } catch (e) {
-            throw new DriverPackageNotInstalledError("Oracle", "oracledb");
+            throw new DriverPackageNotInstalledError("Oracle", this.options.driver || "oracledb");
         }
     }
 
@@ -659,7 +659,7 @@ export class OracleDriver implements Driver {
     protected async createPool(options: OracleConnectionOptions, credentials: OracleConnectionCredentialsOptions): Promise<any> {
 
         credentials = Object.assign(credentials, DriverUtils.buildDriverOptions(credentials)); // todo: do it better way
-       
+
         // build connection options for the driver
         const connectionOptions = Object.assign({}, {
             user: credentials.username,

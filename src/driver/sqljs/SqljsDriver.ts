@@ -74,7 +74,7 @@ export class SqljsDriver extends AbstractSqliteDriver {
 
         return this.queryRunner;
     }
-    
+
     /**
      * Loads a database from a given file (Node.js), local storage key (browser) or array.
      * This will delete the current database!
@@ -98,12 +98,12 @@ export class SqljsDriver extends AbstractSqliteDriver {
                     // File will be written on first write operation.
                     return this.createDatabaseConnectionWithImport();
                 }
-            } 
+            }
             else {
                 // browser
                 // fileNameOrLocalStorageOrData should be a local storage key
                 const localStorageContent = PlatformTools.getGlobalVariable().localStorage.getItem(fileNameOrLocalStorageOrData);
-                
+
                 if (localStorageContent != null) {
                     // localStorage value exists.
                     return this.createDatabaseConnectionWithImport(JSON.parse(localStorageContent));
@@ -132,7 +132,7 @@ export class SqljsDriver extends AbstractSqliteDriver {
         if (!location && !this.options.location) {
             throw new Error(`No location is set, specify a location parameter or add the location option to your configuration`);
         }
-        
+
         let path = "";
         if (location) {
             path = location;
@@ -173,7 +173,7 @@ export class SqljsDriver extends AbstractSqliteDriver {
             }
         }
     }
-    
+
     /**
      * Returns the current database as Uint8Array.
      */
@@ -254,10 +254,10 @@ export class SqljsDriver extends AbstractSqliteDriver {
         }
         else {
             try {
-                this.sqlite = PlatformTools.load("sql.js");
+                this.sqlite = PlatformTools.load(this.options.driver || "sql.js");
 
             } catch (e) {
-                throw new DriverPackageNotInstalledError("sql.js", "sql.js");
+                throw new DriverPackageNotInstalledError("sql.js", this.options.driver || "sql.js");
             }
         }
     }

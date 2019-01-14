@@ -15,6 +15,11 @@ export interface BaseConnectionOptions {
     readonly type: DatabaseType;
 
     /**
+     * The database driver to load ('require').
+     */
+    readonly driver?: string;
+
+    /**
      * Connection name. If connection name is not given then it will be called "default".
      * Different connections must have different names.
      */

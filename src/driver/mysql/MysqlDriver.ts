@@ -768,7 +768,7 @@ export class MysqlDriver implements Driver {
      */
     protected loadDependencies(): void {
         try {
-            this.mysql = PlatformTools.load("mysql");  // try to load first supported package
+            this.mysql = PlatformTools.load(this.options.driver || "mysql");  // try to load first supported package
             /*
              * Some frameworks (such as Jest) may mess up Node's require cache and provide garbage for the 'mysql' module
              * if it was not installed. We check that the object we got actually contains something otherwise we treat
@@ -784,7 +784,7 @@ export class MysqlDriver implements Driver {
                 this.mysql = PlatformTools.load("mysql2"); // try to load second supported package
 
             } catch (e) {
-                throw new DriverPackageNotInstalledError("Mysql", "mysql");
+                throw new DriverPackageNotInstalledError("Mysql", "mysql2");
             }
         }
     }

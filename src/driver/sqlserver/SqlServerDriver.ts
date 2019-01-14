@@ -674,10 +674,10 @@ export class SqlServerDriver implements Driver {
      */
     protected loadDependencies(): void {
         try {
-            this.mssql = PlatformTools.load("mssql");
+            this.mssql = PlatformTools.load(this.options.driver || "mssql");
 
         } catch (e) { // todo: better error for browser env
-            throw new DriverPackageNotInstalledError("SQL Server", "mssql");
+            throw new DriverPackageNotInstalledError("SQL Server", this.options.driver || "mssql");
         }
     }
 

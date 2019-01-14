@@ -399,10 +399,10 @@ export class MongoDriver implements Driver {
      */
     protected loadDependencies(): any {
         try {
-            this.mongodb = PlatformTools.load("mongodb");  // try to load native driver dynamically
+            this.mongodb = PlatformTools.load(this.options.driver || "mongodb");  // try to load native driver dynamically
 
         } catch (e) {
-            throw new DriverPackageNotInstalledError("MongoDB", "mongodb");
+            throw new DriverPackageNotInstalledError("MongoDB", this.options.driver || "mongodb");
         }
     }
 

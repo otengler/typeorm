@@ -812,7 +812,7 @@ export class PostgresDriver implements Driver {
      */
     protected loadDependencies(): void {
         try {
-            this.postgres = PlatformTools.load("pg");
+            this.postgres = PlatformTools.load(this.options.driver || "pg");
             try {
                 const pgNative = PlatformTools.load("pg-native");
                 if (pgNative && this.postgres.native) this.postgres = this.postgres.native;
@@ -820,7 +820,7 @@ export class PostgresDriver implements Driver {
             } catch (e) { }
 
         } catch (e) { // todo: better error for browser env
-            throw new DriverPackageNotInstalledError("Postgres", "pg");
+            throw new DriverPackageNotInstalledError("Postgres", this.options.driver || "pg");
         }
     }
 

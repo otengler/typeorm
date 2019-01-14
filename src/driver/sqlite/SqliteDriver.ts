@@ -114,10 +114,10 @@ export class SqliteDriver extends AbstractSqliteDriver {
      */
     protected loadDependencies(): void {
         try {
-            this.sqlite = PlatformTools.load("sqlite3").verbose();
+            this.sqlite = PlatformTools.load(this.options.driver || "sqlite3").verbose();
 
         } catch (e) {
-            throw new DriverPackageNotInstalledError("SQLite", "sqlite3");
+            throw new DriverPackageNotInstalledError("SQLite", this.options.driver || "sqlite3");
         }
     }
 
