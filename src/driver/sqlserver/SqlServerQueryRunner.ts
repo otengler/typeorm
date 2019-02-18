@@ -216,6 +216,7 @@ export class SqlServerQueryRunner extends BaseQueryRunner implements QueryRunner
                     let promiseIndex = this.queryResponsibilityChain.indexOf(promise);
                     let waitingPromiseIndex = this.queryResponsibilityChain.indexOf(waitingPromise);
                     if (err) {
+                        console.error(`SQL statement '${query}' with parameters ${JSON.stringify(parameters)} failed':`, err);
                         this.driver.connection.logger.logQueryError(err, query, parameters, this);
                         resolveChain();
                         return fail(new QueryFailedError(query, parameters, err));
@@ -234,6 +235,7 @@ export class SqlServerQueryRunner extends BaseQueryRunner implements QueryRunner
                 });
 
             } catch (err) {
+                this.driver.connection.logger.logQueryError(err, query, parameters, this);
                 fail(err);
             }
         });
